@@ -1,0 +1,54 @@
+[project]
+name = "spacy-fastfit"
+version = "0.1.0"
+description = "This repository contains an easy and intuitive approach to use FastFit in combination with spaCy."
+authors = [
+    {name = "davidberenstein1957", email = "david.m.berenstein@gmail.com"},
+]
+dependencies = [
+    "spacy>=3,<4",
+    "fast-fit>=1",
+    "pydantic>=2",
+]
+requires-python = ">=3.9,<3.13"
+readme = "README.md"
+license = {text = "0"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.ruff]
+line-length = 120
+
+[tool.black]
+line-length = 120
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.plugins]
+"spacy" = "spacy_fastfit.__init__:create_fastfit_model"
+
+[tool.pdm.version]
+source = "file"
+path = "src/argilla_sdk/__init__.py"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "ipython>=8.12.3",
+    "pytest>=7.4.4",
+    "flake8>=5.0.4",
+    "ruff>=0.1.12",
+    "pytest-mock>=3.12.0",
+    "pytest-httpx>=0.26.0",
+    "black>=23.12.1",
+    "build>=1.0.3",
+    "pre-commit>=3.5.0",
+]
+
+[tool.pdm.scripts]
+test = "pytest tests"
+lint = "ruff check"
+format = "black ."
+all = {composite = ["format", "lint", "test"]}
